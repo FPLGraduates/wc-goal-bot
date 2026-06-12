@@ -37,6 +37,7 @@ async function checkForGoals() {
       const goals = match.goals || [];
 
       console.log(`Goals in match ${match.homeTeam.name} vs ${match.awayTeam.name}:`, goals.length);
+      console.log('Raw match data:', JSON.stringify(match.goals));
 
       for (const goal of goals) {
         const goalId = `${match.id}-${goal.minute}-${goal.scorer.name}`;
