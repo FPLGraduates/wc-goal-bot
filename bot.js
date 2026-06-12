@@ -9,33 +9,19 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const announcedGoals = new Set();
 
 const teamFlags = {
-  // Group A
   'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'Korea Republic': '🇰🇷', 'Czechia': '🇨🇿',
-  // Group B
   'Canada': '🇨🇦', 'Bosnia and Herzegovina': '🇧🇦', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭',
-  // Group C
   'Brazil': '🇧🇷', 'Colombia': '🇨🇴', 'Côte d\'Ivoire': '🇨🇮', 'Tunisia': '🇹🇳',
-  // Group D
-  'USA': '🇺🇸', 'United States': '🇺🇸', 'Paraguay': '🇵🇾', 'Australia': '🇦🇺', 'Türkiye': '🇹🇷', 'Turkey': '🇹🇷',
-  // Group E
+  'United States': '🇺🇸', 'USA': '🇺🇸', 'Paraguay': '🇵🇾', 'Australia': '🇦🇺', 'Türkiye': '🇹🇷',
   'Spain': '🇪🇸', 'Morocco': '🇲🇦', 'Japan': '🇯🇵', 'Haiti': '🇭🇹',
-  // Group F
   'France': '🇫🇷', 'Algeria': '🇩🇿', 'Argentina': '🇦🇷', 'Jordan': '🇯🇴',
-  // Group G
   'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Senegal': '🇸🇳', 'Netherlands': '🇳🇱', 'Curaçao': '🇨🇼',
-  // Group H
-  'Portugal': '🇵🇹', 'DR Congo': '🇨🇩', 'Uzbekistan': '🇺🇿', 'Colombia': '🇨🇴',
-  // Group I
+  'Portugal': '🇵🇹', 'DR Congo': '🇨🇩', 'Uzbekistan': '🇺🇿',
   'Germany': '🇩🇪', 'Saudi Arabia': '🇸🇦', 'Belgium': '🇧🇪', 'Cabo Verde': '🇨🇻',
-  // Group J
-  'Argentina': '🇦🇷', 'Ghana': '🇬🇭', 'Ecuador': '🇪🇨', 'Curaçao': '🇨🇼',
-  // Group K
-  'Uruguay': '🇺🇾', 'Iraq': '🇮🇶', 'Panama': '🇵🇦', 'Egypt': '🇪🇬',
-  // Group L
-  'Croatia': '🇭🇷', 'Iran': '🇮🇷', 'Norway': '🇳🇴', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-  // Others
-  'Sweden': '🇸🇪', 'Austria': '🇦🇹', 'Serbia': '🇷🇸', 'New Zealand': '🇳🇿',
-  'Ghana': '🇬🇭', 'Tunisia': '🇹🇳', 'South Korea': '🇰🇷', 'Senegal': '🇸🇳',
+  'Ghana': '🇬🇭', 'Ecuador': '🇪🇨', 'Uruguay': '🇺🇾', 'Iraq': '🇮🇶',
+  'Panama': '🇵🇦', 'Egypt': '🇪🇬', 'Croatia': '🇭🇷', 'Iran': '🇮🇷',
+  'Norway': '🇳🇴', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Sweden': '🇸🇪', 'Austria': '🇦🇹',
+  'Serbia': '🇷🇸', 'New Zealand': '🇳🇿', 'South Korea': '🇰🇷',
 };
 
 async function checkForGoals() {
@@ -76,59 +62,4 @@ async function checkForGoals() {
         ].filter(Boolean).join('\n');
 
         const channel = await client.channels.fetch(CHANNEL_ID);
-        await channel.send(message);
-      }
-    }
-  } catch (err) {
-    console.error('Error checking for goals:', err.message);
-  }
-}
-
-client.once('ready', () => {
-  console.log(`✅ Bot is online as ${client.user.tag}`);
-  console.log('CHANNEL ID IN USE:', CHANNEL_ID);
-  setInterval(checkForGoals, 30000);
-});
-
-client.login(DISCORD_TOKEN);    );
-    console.log('Live matches found:', res.data.matches.length);
-    console.log('Goals in match:', JSON.stringify(res.data.matches[0]?.goals));
-
-    for (const match of res.data.matches) {
-      for (const goal of match.goals || []) {
-        const goalId = `${match.id}-${goal.minute}-${goal.scorer.name}`;
-        if (announcedGoals.has(goalId)) continue;
-        announcedGoals.add(goalId);
-
-        const flag = teamFlags[goal.team.name] || '🏳️';
-        const assist = goal.assist?.name ? `\n🅰️ ${goal.assist.name}` : '';
-        const homeScore = match.score.fullTime.home ?? match.score.halfTime.home ?? 0;
-        const awayScore = match.score.fullTime.away ?? match.score.halfTime.away ?? 0;
-
-        const message = [
-          `⚽ **GOAL! ${match.homeTeam.name} ${homeScore} - ${awayScore} ${match.awayTeam.name}**`,
-          ``,
-          `${flag} **${goal.scorer.name}**`,
-          assist,
-          `⏱️ ${goal.minute}'`
-        ].filter(Boolean).join('\n');
-
-        const channel = await client.channels.fetch(CHANNEL_ID);
-        await channel.send(message);
-      }
-    }
-  } catch (err) {
-    console.error('Error checking for goals:', err.message);
-  }
-}
-
-client.once('ready', () => {
-  console.log(`✅ Bot is online as ${client.user.tag}`);
-  console.log('CHANNEL ID IN USE:', process.env.CHANNEL_ID);
-
-  setInterval(checkForGoals, 30000);
-});
-
-client.login(DISCORD_TOKEN);
-
-// redeploy fix
+        await channel.send(mes
