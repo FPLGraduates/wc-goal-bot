@@ -73,3 +73,4 @@ client.once('ready', () => {
 
 client.login(DISCORD_TOKEN);
 
+// force full redeploy
