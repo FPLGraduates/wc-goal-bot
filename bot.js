@@ -64,12 +64,8 @@ async function checkForGoals() {
   }
 }
 
-client.once('ready', async () => {
+client.once('ready', () => {
   console.log(`✅ Bot is online as ${client.user.tag}`);
-
-  const channel = await client.channels.fetch(CHANNEL_ID);
-  await channel.send('🧪 Test bot connected successfully');
-
   setInterval(checkForGoals, 30000);
 });
 
