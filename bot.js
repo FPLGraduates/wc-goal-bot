@@ -66,6 +66,8 @@ async function checkForGoals() {
 
 client.once('ready', () => {
   console.log(`✅ Bot is online as ${client.user.tag}`);
+  console.log('CHANNEL ID IN USE:', process.env.CHANNEL_ID);
+
   setInterval(checkForGoals, 30000);
 });
 
