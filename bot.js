@@ -61,4 +61,7 @@ client.once('ready', () => {
   setInterval(checkForGoals, 30000);
 });
 
+console.log('Token length:', DISCORD_TOKEN ? DISCORD_TOKEN.length : 'UNDEFINED');
+console.log('Token start:', DISCORD_TOKEN ? DISCORD_TOKEN.substring(0, 5) : 'UNDEFINED');
+
 client.login(DISCORD_TOKEN);
