@@ -62,4 +62,18 @@ async function checkForGoals() {
         ].filter(Boolean).join('\n');
 
         const channel = await client.channels.fetch(CHANNEL_ID);
-        await channel.send(mes
+        await channel.send(message);
+      }
+    }
+  } catch (err) {
+    console.error('Error checking for goals:', err.message);
+  }
+}
+
+client.once('ready', () => {
+  console.log(`✅ Bot is online as ${client.user.tag}`);
+  console.log('CHANNEL ID IN USE:', CHANNEL_ID);
+  setInterval(checkForGoals, 30000);
+});
+
+client.login(DISCORD_TOKEN);
