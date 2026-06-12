@@ -36,6 +36,7 @@ async function checkForGoals() {
       { headers: { 'X-Auth-Token': FOOTBALL_API_KEY } }
     );
     console.log('Live matches found:', res.data.matches.length);
+    console.log('Goals in match:', JSON.stringify(res.data.matches[0]?.goals));
 
     for (const match of res.data.matches) {
       for (const goal of match.goals || []) {
