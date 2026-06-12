@@ -9,7 +9,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const announcedGoals = new Set();
 
 const teamFlags = {
-  'France': '🇫🇷', 'Brazil': '🇧🇷', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+  'France': '🇫🇷', 'Brazil': '🇧🇷', 'England': '🏴',
   'Germany': '🇩🇪', 'Spain': '🇪🇸', 'Argentina': '🇦🇷',
   'Portugal': '🇵🇹', 'Netherlands': '🇳🇱', 'USA': '🇺🇸',
   'Morocco': '🇲🇦', 'Japan': '🇯🇵', 'Australia': '🇦🇺',
@@ -19,6 +19,14 @@ const teamFlags = {
   'Croatia': '🇭🇷', 'Serbia': '🇷🇸', 'Switzerland': '🇨🇭',
   'Belgium': '🇧🇪', 'Denmark': '🇩🇰', 'Poland': '🇵🇱',
   'Ecuador': '🇪🇨', 'Canada': '🇨🇦', 'Qatar': '🇶🇦',
+  'Bosnia': '🇧🇦', 'South Africa': '🇿🇦', 'Czech Republic': '🇨🇿',
+  'Jordan': '🇯🇴', 'Scotland': '🏴', 'Haiti': '🇭🇹',
+  'Paraguay': '🇵🇾', 'Turkey': '🇹🇷', 'Curacao': '🇨🇼',
+  'Ivory Coast': '🇨🇮', 'Sweden': '🇸🇪', 'Tunisia': '🇹🇳',
+  'Egypt': '🇪🇬', 'New Zealand': '🇳🇿', 'Cape Verde': '🇨🇻',
+  'Iraq': '🇮🇶', 'Norway': '🇳🇴', 'Austria': '🇦🇹',
+  'Algeria': '🇩🇿', 'Uzbekistan': '🇺🇿', 'DR Congo': '🇨🇩',
+  'Panama': '🇵🇦',
 };
 
 async function checkForGoals() {
