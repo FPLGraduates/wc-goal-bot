@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
-const HIGHLIGHTLY_API_KEY = process.env.HIGHLIGHTLY_API_KEY;
+const FOOTBALL_API_KEY = process.env.FOOTBALL_API_KEY;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const announcedGoals = new Set();
@@ -27,38 +27,34 @@ const teamFlags = {
 async function checkForGoals() {
   try {
     const res = await axios.get(
-      'https://football.highlightly.net/matches/live',
-      {
-        headers: {
-          'x-api-key': HIGHLIGHTLY_API_KEY
-        }
-      }
+      'https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY',
+      { headers: { 'X-Auth-Token': FOOTBALL_API_KEY } }
     );
 
-    console.log('Live matches found:', res.data.data?.length || 0);
+    console.log('Live matches found:', res.data.matches.length);
 
-    for (const match of res.data.data || []) {
-      const events = match.events || [];
+    for (const match of res.data.matches) {
+      const goals = match.goals || [];
 
-      for (const event of events) {
-        if (event.type !== 'GOAL') continue;
+      console.log(`Goals in match ${match.homeTeam.name} vs ${match.awayTeam.name}:`, goals.length);
 
-        const goalId = `${match.id}-${event.minute}-${event.player?.name}`;
+      for (const goal of goals) {
+        const goalId = `${match.id}-${goal.minute}-${goal.scorer.name}`;
         if (announcedGoals.has(goalId)) continue;
         announcedGoals.add(goalId);
 
-        const teamName = event.team?.name || '';
+        const teamName = goal.team?.name || '';
         const flag = teamFlags[teamName] || '🏳️';
-        const assist = event.assist?.name ? `\n🅰️ ${event.assist.name}` : '';
-        const homeScore = match.homeScore ?? '?';
-        const awayScore = match.awayScore ?? '?';
+        const assist = goal.assist?.name ? `\n🅰️ ${goal.assist.name}` : '';
+        const homeScore = match.score.fullTime.home ?? match.score.halfTime.home ?? '?';
+        const awayScore = match.score.fullTime.away ?? match.score.halfTime.away ?? '?';
 
         const message = [
           `⚽ **GOAL! ${match.homeTeam.name} ${homeScore} - ${awayScore} ${match.awayTeam.name}**`,
           ``,
-          `${flag} **${event.player?.name}**`,
+          `${flag} **${goal.scorer.name}**`,
           assist,
-          `⏱️ ${event.minute}'`
+          `⏱️ ${goal.minute}'`
         ].filter(Boolean).join('\n');
 
         const channel = await client.channels.fetch(CHANNEL_ID);
