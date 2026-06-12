@@ -35,6 +35,7 @@ async function checkForGoals() {
       'https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY',
       { headers: { 'X-Auth-Token': FOOTBALL_API_KEY } }
     );
+    console.log('Live matches found:', res.data.matches.length);
 
     for (const match of res.data.matches) {
       for (const goal of match.goals || []) {
