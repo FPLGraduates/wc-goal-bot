@@ -2,7 +2,7 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const axios = require('axios');
 
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
-const CHANNEL_ID = process.env.CHANNEL_ID_NEW;
+const CHANNEL_ID = process.env.CHANNEL_ID;
 const FOOTBALL_API_KEY = process.env.FOOTBALL_API_KEY;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
